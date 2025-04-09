@@ -139,8 +139,8 @@ async def download_clips(num_clips: int, search_result: dict, video_info: dict) 
     if not host_dir:
         raise ValueError("TWELVELABS_MCP_BASE_PATH environment variable is required")
 
-    # Expand the tilde to the user's home directory
-    host_dir = os.path.expanduser(host_dir)
+    # Properly handle tilde expansion to get absolute path
+    host_dir = os.path.abspath(os.path.expanduser(host_dir))
     host_dir = Path(host_dir)
     print(f"Using output directory: {host_dir}")
     host_dir.mkdir(exist_ok=True, parents=True)
